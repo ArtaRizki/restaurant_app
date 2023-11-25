@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:restaurant_app/src/restaurant/controller/restaurant_provider.dart';
-
 import '../../../common/helper/constant.dart';
+import '../controller/restaurant_provider.dart';
 
 class RestaurantDetailView extends ConsumerStatefulWidget {
   const RestaurantDetailView({super.key, required this.id, required this.name});
@@ -28,15 +27,15 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
 
   @override
   void dispose() {
-    ref.read(restaurantDetailProvider.notifier).dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final restaurantDetail = ref.watch(restaurantDetailProvider);
+
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: InkWell(
@@ -57,9 +56,12 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: double.infinity,
+                      height: size.height * 0.4,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(16),
+                            bottomRight: Radius.circular(16)),
                         child: CachedNetworkImage(
                           placeholder: (context, _) {
                             return const Center(
@@ -73,7 +75,6 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Column(
@@ -122,7 +123,7 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.42,
+                      height: size.height * 0.42,
                       child: GridView.count(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 4),
@@ -160,8 +161,7 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                       ),
                     ),
                     SizedBox(
-                      // color: Colors.green,
-                      height: MediaQuery.of(context).size.height * 0.42,
+                      height: size.height * 0.42,
                       child: GridView.count(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 4),

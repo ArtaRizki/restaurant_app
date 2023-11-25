@@ -22,9 +22,7 @@ final restaurantSearchProvider =
         (ref) => RestaurantSearchNotifier());
 
 class RestaurantNotifier extends StateNotifier<RestaurantState> {
-  RestaurantNotifier()
-      : super(const RestaurantState.data(rM.RestaurantModel(
-            error: false, message: '', count: 0, restaurants: []))) {
+  RestaurantNotifier() : super(const RestaurantState.loading()) {
     getRestaurant();
   }
 
@@ -50,26 +48,13 @@ class RestaurantNotifier extends StateNotifier<RestaurantState> {
 }
 
 class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
-  RestaurantDetailNotifier()
-      : super(const RestaurantDetailState.data(rD.RestaurantDetailModel(
-            error: false,
-            message: '',
-            restaurant: rD.Restaurant(
-                id: '',
-                name: '',
-                description: '',
-                city: '',
-                address: '',
-                pictureId: '',
-                categories: [],
-                menus: rD.Menus(foods: [], drinks: []),
-                rating: 0.0,
-                customerReviews: []))));
+  RestaurantDetailNotifier() : super(const RestaurantDetailState.loading());
 
   BaseController baseC = BaseController();
 
   Future<void> getDetailRestaurant(String id) async {
     try {
+      state = const RestaurantDetailState.loading();
       final url = '${Constant.baseApi}/detail/$id';
       final response = await baseC.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -86,14 +71,13 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
 }
 
 class RestaurantSearchNotifier extends StateNotifier<RestaurantSearchState> {
-  RestaurantSearchNotifier()
-      : super(const RestaurantSearchState.data(
-            RestaurantSearchModel(error: false, founded: 0, restaurants: [])));
+  RestaurantSearchNotifier() : super(const RestaurantSearchState.loading());
 
   BaseController baseC = BaseController();
 
   Future<void> getRestaurantSearch({String query = ""}) async {
     try {
+      state = const RestaurantSearchState.loading();
       const url = '${Constant.baseApi}/search';
       final response = await baseC.get(url, query: {'q': query});
       if (response.statusCode == 200 || response.statusCode == 201) {

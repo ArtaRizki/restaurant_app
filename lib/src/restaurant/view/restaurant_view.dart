@@ -16,21 +16,18 @@ class RestaurantView extends ConsumerStatefulWidget {
 class _RestaurantViewState extends ConsumerState<RestaurantView> {
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   ref.read(restaurantProvider.notifier).getRestaurant();
-    // });
     super.initState();
   }
 
   @override
   void dispose() {
-    ref.read(restaurantProvider.notifier).dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final restaurant = ref.watch(restaurantProvider);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -61,87 +58,96 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
               const Text("Resto rekomendasi untukmu!",
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.black26)),
-              const SizedBox(height: 32),
+              // const SizedBox(height: 32),
               restaurant.when(
-                loading: () => const Center(child: CircularProgressIndicator()),
+                loading: () => SizedBox(
+                  height: size.height * 0.5,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
                 error: (error) => Text(error),
                 data: (data) => SizedBox(
                   width: double.infinity,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.restaurants.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 16),
-                    itemBuilder: (context, index) {
-                      final item = data.restaurants[index];
-                      return InkWell(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RestaurantDetailView(
-                                    id: item.id, name: item.name))),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: CachedNetworkImage(
-                                  placeholder: (context, _) {
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  },
-                                  imageUrl:
-                                      Constant.imageUrlSmall + item.pictureId,
-                                  errorWidget: (context, _, __) {
-                                    return const Text("Gambar Error");
-                                  },
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              flex: 7,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  child: data.restaurants.isEmpty
+                      ? Text("Data tidak ditemukan")
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: data.restaurants.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 16),
+                          itemBuilder: (context, index) {
+                            final item = data.restaurants[index];
+                            return InkWell(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          RestaurantDetailView(
+                                              id: item.id, name: item.name))),
+                              child: Row(
                                 children: [
-                                  Text(
-                                    item.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.location_on,
-                                        color: Colors.red,
-                                        size: 15,
+                                  Expanded(
+                                    flex: 3,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: CachedNetworkImage(
+                                        placeholder: (context, _) {
+                                          return const Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        },
+                                        imageUrl: Constant.imageUrlSmall +
+                                            item.pictureId,
+                                        errorWidget: (context, _, __) {
+                                          return const Text("Gambar Error");
+                                        },
                                       ),
-                                      const SizedBox(width: 2),
-                                      Text(item.city),
-                                    ],
+                                    ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                        size: 15,
-                                      ),
-                                      const SizedBox(width: 2),
-                                      Text("${item.rating}"),
-                                    ],
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    flex: 7,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.name,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.location_on,
+                                              color: Colors.red,
+                                              size: 15,
+                                            ),
+                                            const SizedBox(width: 2),
+                                            Text(item.city),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.orange,
+                                              size: 15,
+                                            ),
+                                            const SizedBox(width: 2),
+                                            Text("${item.rating}"),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               )
             ],
