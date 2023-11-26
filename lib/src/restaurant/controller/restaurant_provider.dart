@@ -95,25 +95,25 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
           log("RESTO LIST : $e");
         });
         if (!favRestaurant.any((e) => e == restaurantModel.restaurant.id)) {
-          state.whenOrNull(data: (data) {
-            data = data.copyWith(
-                restaurant: data.restaurant.copyWith(isFavorite: true));
-          });
+          // state.whenOrNull(data: (data) {
+          //   data = data.copyWith(
+          //       restaurant: data.restaurant.copyWith(isFavorite: true));
+          // });
           favRestaurant.add(restaurantModel.restaurant.id);
         } else {
-          state.whenOrNull(data: (data) {
-            data = data.copyWith(
-                restaurant: data.restaurant.copyWith(isFavorite: false));
-          });
+          // state.whenOrNull(data: (data) {
+          //   data = data.copyWith(
+          //       restaurant: data.restaurant.copyWith(isFavorite: false));
+          // });
           favRestaurant.remove(restaurantModel.restaurant.id);
         }
         prefs.setStringList("fav", favRestaurant);
       } else {
         List<String> favTemp = [];
-        state.whenOrNull(data: (data) {
-          data = data.copyWith(
-              restaurant: data.restaurant.copyWith(isFavorite: true));
-        });
+        // state.whenOrNull(data: (data) {
+        //   data = data.copyWith(
+        //       restaurant: data.restaurant.copyWith(isFavorite: true));
+        // });
         favTemp.add(restaurantModel.restaurant.id);
         prefs.setStringList("fav", favTemp);
       }

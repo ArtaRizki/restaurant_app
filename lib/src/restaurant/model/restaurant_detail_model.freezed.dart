@@ -250,7 +250,6 @@ mixin _$Restaurant {
   @JsonKey(name: "customerReviews")
   List<CustomerReview> get customerReviews =>
       throw _privateConstructorUsedError;
-  bool get isFavorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -274,8 +273,7 @@ abstract class $RestaurantCopyWith<$Res> {
       @JsonKey(name: "categories") List<Category> categories,
       @JsonKey(name: "menus") Menus menus,
       @JsonKey(name: "rating") double rating,
-      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews,
-      bool isFavorite});
+      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews});
 
   $MenusCopyWith<$Res> get menus;
 }
@@ -303,7 +301,6 @@ class _$RestaurantCopyWithImpl<$Res, $Val extends Restaurant>
     Object? menus = null,
     Object? rating = null,
     Object? customerReviews = null,
-    Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -346,10 +343,6 @@ class _$RestaurantCopyWithImpl<$Res, $Val extends Restaurant>
           ? _value.customerReviews
           : customerReviews // ignore: cast_nullable_to_non_nullable
               as List<CustomerReview>,
-      isFavorite: null == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 
@@ -380,8 +373,7 @@ abstract class _$$RestaurantImplCopyWith<$Res>
       @JsonKey(name: "categories") List<Category> categories,
       @JsonKey(name: "menus") Menus menus,
       @JsonKey(name: "rating") double rating,
-      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews,
-      bool isFavorite});
+      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews});
 
   @override
   $MenusCopyWith<$Res> get menus;
@@ -408,7 +400,6 @@ class __$$RestaurantImplCopyWithImpl<$Res>
     Object? menus = null,
     Object? rating = null,
     Object? customerReviews = null,
-    Object? isFavorite = null,
   }) {
     return _then(_$RestaurantImpl(
       id: null == id
@@ -451,10 +442,6 @@ class __$$RestaurantImplCopyWithImpl<$Res>
           ? _value._customerReviews
           : customerReviews // ignore: cast_nullable_to_non_nullable
               as List<CustomerReview>,
-      isFavorite: null == isFavorite
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -473,8 +460,7 @@ class _$RestaurantImpl implements _Restaurant {
       @JsonKey(name: "menus") required this.menus,
       @JsonKey(name: "rating") required this.rating,
       @JsonKey(name: "customerReviews")
-      required final List<CustomerReview> customerReviews,
-      this.isFavorite = false})
+      required final List<CustomerReview> customerReviews})
       : _categories = categories,
         _customerReviews = customerReviews;
 
@@ -524,12 +510,8 @@ class _$RestaurantImpl implements _Restaurant {
   }
 
   @override
-  @JsonKey()
-  final bool isFavorite;
-
-  @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, description: $description, city: $city, address: $address, pictureId: $pictureId, categories: $categories, menus: $menus, rating: $rating, customerReviews: $customerReviews, isFavorite: $isFavorite)';
+    return 'Restaurant(id: $id, name: $name, description: $description, city: $city, address: $address, pictureId: $pictureId, categories: $categories, menus: $menus, rating: $rating, customerReviews: $customerReviews)';
   }
 
   @override
@@ -550,9 +532,7 @@ class _$RestaurantImpl implements _Restaurant {
             (identical(other.menus, menus) || other.menus == menus) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             const DeepCollectionEquality()
-                .equals(other._customerReviews, _customerReviews) &&
-            (identical(other.isFavorite, isFavorite) ||
-                other.isFavorite == isFavorite));
+                .equals(other._customerReviews, _customerReviews));
   }
 
   @JsonKey(ignore: true)
@@ -568,8 +548,7 @@ class _$RestaurantImpl implements _Restaurant {
       const DeepCollectionEquality().hash(_categories),
       menus,
       rating,
-      const DeepCollectionEquality().hash(_customerReviews),
-      isFavorite);
+      const DeepCollectionEquality().hash(_customerReviews));
 
   @JsonKey(ignore: true)
   @override
@@ -597,8 +576,7 @@ abstract class _Restaurant implements Restaurant {
       @JsonKey(name: "menus") required final Menus menus,
       @JsonKey(name: "rating") required final double rating,
       @JsonKey(name: "customerReviews")
-      required final List<CustomerReview> customerReviews,
-      final bool isFavorite}) = _$RestaurantImpl;
+      required final List<CustomerReview> customerReviews}) = _$RestaurantImpl;
 
   factory _Restaurant.fromJson(Map<String, dynamic> json) =
       _$RestaurantImpl.fromJson;
@@ -633,8 +611,6 @@ abstract class _Restaurant implements Restaurant {
   @override
   @JsonKey(name: "customerReviews")
   List<CustomerReview> get customerReviews;
-  @override
-  bool get isFavorite;
   @override
   @JsonKey(ignore: true)
   _$$RestaurantImplCopyWith<_$RestaurantImpl> get copyWith =>

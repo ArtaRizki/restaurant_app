@@ -41,7 +41,7 @@ class Restaurant with _$Restaurant {
     @JsonKey(name: "rating") required double rating,
     @JsonKey(name: "customerReviews")
     required List<CustomerReview> customerReviews,
-    @Default(false) bool isFavorite,
+    // @Default(false) bool isFavorite,
   }) = _Restaurant;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) =>

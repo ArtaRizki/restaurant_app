@@ -109,6 +109,7 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                                     restaurantRead.isFav(data.restaurant)
                                         ? Icons.favorite
                                         : Icons.favorite_border,
+                                    size: 30,
                                     color: Colors.red,
                                   ),
                                 ),

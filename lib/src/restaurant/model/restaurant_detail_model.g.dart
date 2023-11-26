@@ -39,7 +39,6 @@ _$RestaurantImpl _$$RestaurantImplFromJson(Map<String, dynamic> json) =>
       customerReviews: (json['customerReviews'] as List<dynamic>)
           .map((e) => CustomerReview.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isFavorite: json['isFavorite'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$RestaurantImplToJson(_$RestaurantImpl instance) =>
@@ -54,7 +53,6 @@ Map<String, dynamic> _$$RestaurantImplToJson(_$RestaurantImpl instance) =>
       'menus': instance.menus,
       'rating': instance.rating,
       'customerReviews': instance.customerReviews,
-      'isFavorite': instance.isFavorite,
     };
 
 _$CategoryImpl _$$CategoryImplFromJson(Map<String, dynamic> json) =>
