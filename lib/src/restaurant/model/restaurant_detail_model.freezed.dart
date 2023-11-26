@@ -21,8 +21,11 @@ RestaurantDetailModel _$RestaurantDetailModelFromJson(
 
 /// @nodoc
 mixin _$RestaurantDetailModel {
+  @JsonKey(name: "error")
   bool get error => throw _privateConstructorUsedError;
+  @JsonKey(name: "message")
   String get message => throw _privateConstructorUsedError;
+  @JsonKey(name: "restaurant")
   Restaurant get restaurant => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +40,10 @@ abstract class $RestaurantDetailModelCopyWith<$Res> {
           $Res Function(RestaurantDetailModel) then) =
       _$RestaurantDetailModelCopyWithImpl<$Res, RestaurantDetailModel>;
   @useResult
-  $Res call({bool error, String message, Restaurant restaurant});
+  $Res call(
+      {@JsonKey(name: "error") bool error,
+      @JsonKey(name: "message") String message,
+      @JsonKey(name: "restaurant") Restaurant restaurant});
 
   $RestaurantCopyWith<$Res> get restaurant;
 }
@@ -94,7 +100,10 @@ abstract class _$$RestaurantDetailModelImplCopyWith<$Res>
       __$$RestaurantDetailModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool error, String message, Restaurant restaurant});
+  $Res call(
+      {@JsonKey(name: "error") bool error,
+      @JsonKey(name: "message") String message,
+      @JsonKey(name: "restaurant") Restaurant restaurant});
 
   @override
   $RestaurantCopyWith<$Res> get restaurant;
@@ -137,16 +146,21 @@ class __$$RestaurantDetailModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RestaurantDetailModelImpl implements _RestaurantDetailModel {
   const _$RestaurantDetailModelImpl(
-      {required this.error, required this.message, required this.restaurant});
+      {@JsonKey(name: "error") required this.error,
+      @JsonKey(name: "message") required this.message,
+      @JsonKey(name: "restaurant") required this.restaurant});
 
   factory _$RestaurantDetailModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RestaurantDetailModelImplFromJson(json);
 
   @override
+  @JsonKey(name: "error")
   final bool error;
   @override
+  @JsonKey(name: "message")
   final String message;
   @override
+  @JsonKey(name: "restaurant")
   final Restaurant restaurant;
 
   @override
@@ -186,18 +200,22 @@ class _$RestaurantDetailModelImpl implements _RestaurantDetailModel {
 
 abstract class _RestaurantDetailModel implements RestaurantDetailModel {
   const factory _RestaurantDetailModel(
-      {required final bool error,
-      required final String message,
-      required final Restaurant restaurant}) = _$RestaurantDetailModelImpl;
+          {@JsonKey(name: "error") required final bool error,
+          @JsonKey(name: "message") required final String message,
+          @JsonKey(name: "restaurant") required final Restaurant restaurant}) =
+      _$RestaurantDetailModelImpl;
 
   factory _RestaurantDetailModel.fromJson(Map<String, dynamic> json) =
       _$RestaurantDetailModelImpl.fromJson;
 
   @override
+  @JsonKey(name: "error")
   bool get error;
   @override
+  @JsonKey(name: "message")
   String get message;
   @override
+  @JsonKey(name: "restaurant")
   Restaurant get restaurant;
   @override
   @JsonKey(ignore: true)
@@ -211,17 +229,28 @@ Restaurant _$RestaurantFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Restaurant {
+  @JsonKey(name: "id")
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "name")
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "description")
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: "city")
   String get city => throw _privateConstructorUsedError;
+  @JsonKey(name: "address")
   String get address => throw _privateConstructorUsedError;
+  @JsonKey(name: "pictureId")
   String get pictureId => throw _privateConstructorUsedError;
+  @JsonKey(name: "categories")
   List<Category> get categories => throw _privateConstructorUsedError;
+  @JsonKey(name: "menus")
   Menus get menus => throw _privateConstructorUsedError;
+  @JsonKey(name: "rating")
   double get rating => throw _privateConstructorUsedError;
+  @JsonKey(name: "customerReviews")
   List<CustomerReview> get customerReviews =>
       throw _privateConstructorUsedError;
+  bool get isFavorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -236,16 +265,17 @@ abstract class $RestaurantCopyWith<$Res> {
       _$RestaurantCopyWithImpl<$Res, Restaurant>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String city,
-      String address,
-      String pictureId,
-      List<Category> categories,
-      Menus menus,
-      double rating,
-      List<CustomerReview> customerReviews});
+      {@JsonKey(name: "id") String id,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "description") String description,
+      @JsonKey(name: "city") String city,
+      @JsonKey(name: "address") String address,
+      @JsonKey(name: "pictureId") String pictureId,
+      @JsonKey(name: "categories") List<Category> categories,
+      @JsonKey(name: "menus") Menus menus,
+      @JsonKey(name: "rating") double rating,
+      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews,
+      bool isFavorite});
 
   $MenusCopyWith<$Res> get menus;
 }
@@ -273,6 +303,7 @@ class _$RestaurantCopyWithImpl<$Res, $Val extends Restaurant>
     Object? menus = null,
     Object? rating = null,
     Object? customerReviews = null,
+    Object? isFavorite = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -315,6 +346,10 @@ class _$RestaurantCopyWithImpl<$Res, $Val extends Restaurant>
           ? _value.customerReviews
           : customerReviews // ignore: cast_nullable_to_non_nullable
               as List<CustomerReview>,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -336,16 +371,17 @@ abstract class _$$RestaurantImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      String city,
-      String address,
-      String pictureId,
-      List<Category> categories,
-      Menus menus,
-      double rating,
-      List<CustomerReview> customerReviews});
+      {@JsonKey(name: "id") String id,
+      @JsonKey(name: "name") String name,
+      @JsonKey(name: "description") String description,
+      @JsonKey(name: "city") String city,
+      @JsonKey(name: "address") String address,
+      @JsonKey(name: "pictureId") String pictureId,
+      @JsonKey(name: "categories") List<Category> categories,
+      @JsonKey(name: "menus") Menus menus,
+      @JsonKey(name: "rating") double rating,
+      @JsonKey(name: "customerReviews") List<CustomerReview> customerReviews,
+      bool isFavorite});
 
   @override
   $MenusCopyWith<$Res> get menus;
@@ -372,6 +408,7 @@ class __$$RestaurantImplCopyWithImpl<$Res>
     Object? menus = null,
     Object? rating = null,
     Object? customerReviews = null,
+    Object? isFavorite = null,
   }) {
     return _then(_$RestaurantImpl(
       id: null == id
@@ -414,6 +451,10 @@ class __$$RestaurantImplCopyWithImpl<$Res>
           ? _value._customerReviews
           : customerReviews // ignore: cast_nullable_to_non_nullable
               as List<CustomerReview>,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -422,16 +463,18 @@ class __$$RestaurantImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RestaurantImpl implements _Restaurant {
   const _$RestaurantImpl(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.city,
-      required this.address,
-      required this.pictureId,
-      required final List<Category> categories,
-      required this.menus,
-      required this.rating,
-      required final List<CustomerReview> customerReviews})
+      {@JsonKey(name: "id") required this.id,
+      @JsonKey(name: "name") required this.name,
+      @JsonKey(name: "description") required this.description,
+      @JsonKey(name: "city") required this.city,
+      @JsonKey(name: "address") required this.address,
+      @JsonKey(name: "pictureId") required this.pictureId,
+      @JsonKey(name: "categories") required final List<Category> categories,
+      @JsonKey(name: "menus") required this.menus,
+      @JsonKey(name: "rating") required this.rating,
+      @JsonKey(name: "customerReviews")
+      required final List<CustomerReview> customerReviews,
+      this.isFavorite = false})
       : _categories = categories,
         _customerReviews = customerReviews;
 
@@ -439,19 +482,26 @@ class _$RestaurantImpl implements _Restaurant {
       _$$RestaurantImplFromJson(json);
 
   @override
+  @JsonKey(name: "id")
   final String id;
   @override
+  @JsonKey(name: "name")
   final String name;
   @override
+  @JsonKey(name: "description")
   final String description;
   @override
+  @JsonKey(name: "city")
   final String city;
   @override
+  @JsonKey(name: "address")
   final String address;
   @override
+  @JsonKey(name: "pictureId")
   final String pictureId;
   final List<Category> _categories;
   @override
+  @JsonKey(name: "categories")
   List<Category> get categories {
     if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
@@ -459,11 +509,14 @@ class _$RestaurantImpl implements _Restaurant {
   }
 
   @override
+  @JsonKey(name: "menus")
   final Menus menus;
   @override
+  @JsonKey(name: "rating")
   final double rating;
   final List<CustomerReview> _customerReviews;
   @override
+  @JsonKey(name: "customerReviews")
   List<CustomerReview> get customerReviews {
     if (_customerReviews is EqualUnmodifiableListView) return _customerReviews;
     // ignore: implicit_dynamic_type
@@ -471,8 +524,12 @@ class _$RestaurantImpl implements _Restaurant {
   }
 
   @override
+  @JsonKey()
+  final bool isFavorite;
+
+  @override
   String toString() {
-    return 'Restaurant(id: $id, name: $name, description: $description, city: $city, address: $address, pictureId: $pictureId, categories: $categories, menus: $menus, rating: $rating, customerReviews: $customerReviews)';
+    return 'Restaurant(id: $id, name: $name, description: $description, city: $city, address: $address, pictureId: $pictureId, categories: $categories, menus: $menus, rating: $rating, customerReviews: $customerReviews, isFavorite: $isFavorite)';
   }
 
   @override
@@ -493,7 +550,9 @@ class _$RestaurantImpl implements _Restaurant {
             (identical(other.menus, menus) || other.menus == menus) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             const DeepCollectionEquality()
-                .equals(other._customerReviews, _customerReviews));
+                .equals(other._customerReviews, _customerReviews) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
   }
 
   @JsonKey(ignore: true)
@@ -509,7 +568,8 @@ class _$RestaurantImpl implements _Restaurant {
       const DeepCollectionEquality().hash(_categories),
       menus,
       rating,
-      const DeepCollectionEquality().hash(_customerReviews));
+      const DeepCollectionEquality().hash(_customerReviews),
+      isFavorite);
 
   @JsonKey(ignore: true)
   @override
@@ -527,40 +587,54 @@ class _$RestaurantImpl implements _Restaurant {
 
 abstract class _Restaurant implements Restaurant {
   const factory _Restaurant(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final String city,
-      required final String address,
-      required final String pictureId,
-      required final List<Category> categories,
-      required final Menus menus,
-      required final double rating,
-      required final List<CustomerReview> customerReviews}) = _$RestaurantImpl;
+      {@JsonKey(name: "id") required final String id,
+      @JsonKey(name: "name") required final String name,
+      @JsonKey(name: "description") required final String description,
+      @JsonKey(name: "city") required final String city,
+      @JsonKey(name: "address") required final String address,
+      @JsonKey(name: "pictureId") required final String pictureId,
+      @JsonKey(name: "categories") required final List<Category> categories,
+      @JsonKey(name: "menus") required final Menus menus,
+      @JsonKey(name: "rating") required final double rating,
+      @JsonKey(name: "customerReviews")
+      required final List<CustomerReview> customerReviews,
+      final bool isFavorite}) = _$RestaurantImpl;
 
   factory _Restaurant.fromJson(Map<String, dynamic> json) =
       _$RestaurantImpl.fromJson;
 
   @override
+  @JsonKey(name: "id")
   String get id;
   @override
+  @JsonKey(name: "name")
   String get name;
   @override
+  @JsonKey(name: "description")
   String get description;
   @override
+  @JsonKey(name: "city")
   String get city;
   @override
+  @JsonKey(name: "address")
   String get address;
   @override
+  @JsonKey(name: "pictureId")
   String get pictureId;
   @override
+  @JsonKey(name: "categories")
   List<Category> get categories;
   @override
+  @JsonKey(name: "menus")
   Menus get menus;
   @override
+  @JsonKey(name: "rating")
   double get rating;
   @override
+  @JsonKey(name: "customerReviews")
   List<CustomerReview> get customerReviews;
+  @override
+  bool get isFavorite;
   @override
   @JsonKey(ignore: true)
   _$$RestaurantImplCopyWith<_$RestaurantImpl> get copyWith =>
@@ -573,6 +647,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Category {
+  @JsonKey(name: "name")
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -586,7 +661,7 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({String name});
+  $Res call({@JsonKey(name: "name") String name});
 }
 
 /// @nodoc
@@ -621,7 +696,7 @@ abstract class _$$CategoryImplCopyWith<$Res>
       __$$CategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({@JsonKey(name: "name") String name});
 }
 
 /// @nodoc
@@ -649,12 +724,13 @@ class __$$CategoryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CategoryImpl implements _Category {
-  const _$CategoryImpl({required this.name});
+  const _$CategoryImpl({@JsonKey(name: "name") required this.name});
 
   factory _$CategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryImplFromJson(json);
 
   @override
+  @JsonKey(name: "name")
   final String name;
 
   @override
@@ -689,12 +765,14 @@ class _$CategoryImpl implements _Category {
 }
 
 abstract class _Category implements Category {
-  const factory _Category({required final String name}) = _$CategoryImpl;
+  const factory _Category({@JsonKey(name: "name") required final String name}) =
+      _$CategoryImpl;
 
   factory _Category.fromJson(Map<String, dynamic> json) =
       _$CategoryImpl.fromJson;
 
   @override
+  @JsonKey(name: "name")
   String get name;
   @override
   @JsonKey(ignore: true)
@@ -708,8 +786,11 @@ CustomerReview _$CustomerReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CustomerReview {
+  @JsonKey(name: "name")
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: "review")
   String get review => throw _privateConstructorUsedError;
+  @JsonKey(name: "date")
   String get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -724,7 +805,10 @@ abstract class $CustomerReviewCopyWith<$Res> {
           CustomerReview value, $Res Function(CustomerReview) then) =
       _$CustomerReviewCopyWithImpl<$Res, CustomerReview>;
   @useResult
-  $Res call({String name, String review, String date});
+  $Res call(
+      {@JsonKey(name: "name") String name,
+      @JsonKey(name: "review") String review,
+      @JsonKey(name: "date") String date});
 }
 
 /// @nodoc
@@ -769,7 +853,10 @@ abstract class _$$CustomerReviewImplCopyWith<$Res>
       __$$CustomerReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String review, String date});
+  $Res call(
+      {@JsonKey(name: "name") String name,
+      @JsonKey(name: "review") String review,
+      @JsonKey(name: "date") String date});
 }
 
 /// @nodoc
@@ -808,16 +895,21 @@ class __$$CustomerReviewImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CustomerReviewImpl implements _CustomerReview {
   const _$CustomerReviewImpl(
-      {required this.name, required this.review, required this.date});
+      {@JsonKey(name: "name") required this.name,
+      @JsonKey(name: "review") required this.review,
+      @JsonKey(name: "date") required this.date});
 
   factory _$CustomerReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$CustomerReviewImplFromJson(json);
 
   @override
+  @JsonKey(name: "name")
   final String name;
   @override
+  @JsonKey(name: "review")
   final String review;
   @override
+  @JsonKey(name: "date")
   final String date;
 
   @override
@@ -856,18 +948,22 @@ class _$CustomerReviewImpl implements _CustomerReview {
 
 abstract class _CustomerReview implements CustomerReview {
   const factory _CustomerReview(
-      {required final String name,
-      required final String review,
-      required final String date}) = _$CustomerReviewImpl;
+          {@JsonKey(name: "name") required final String name,
+          @JsonKey(name: "review") required final String review,
+          @JsonKey(name: "date") required final String date}) =
+      _$CustomerReviewImpl;
 
   factory _CustomerReview.fromJson(Map<String, dynamic> json) =
       _$CustomerReviewImpl.fromJson;
 
   @override
+  @JsonKey(name: "name")
   String get name;
   @override
+  @JsonKey(name: "review")
   String get review;
   @override
+  @JsonKey(name: "date")
   String get date;
   @override
   @JsonKey(ignore: true)
@@ -881,7 +977,9 @@ Menus _$MenusFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Menus {
+  @JsonKey(name: "foods")
   List<Category> get foods => throw _privateConstructorUsedError;
+  @JsonKey(name: "drinks")
   List<Category> get drinks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -894,7 +992,9 @@ abstract class $MenusCopyWith<$Res> {
   factory $MenusCopyWith(Menus value, $Res Function(Menus) then) =
       _$MenusCopyWithImpl<$Res, Menus>;
   @useResult
-  $Res call({List<Category> foods, List<Category> drinks});
+  $Res call(
+      {@JsonKey(name: "foods") List<Category> foods,
+      @JsonKey(name: "drinks") List<Category> drinks});
 }
 
 /// @nodoc
@@ -933,7 +1033,9 @@ abstract class _$$MenusImplCopyWith<$Res> implements $MenusCopyWith<$Res> {
       __$$MenusImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Category> foods, List<Category> drinks});
+  $Res call(
+      {@JsonKey(name: "foods") List<Category> foods,
+      @JsonKey(name: "drinks") List<Category> drinks});
 }
 
 /// @nodoc
@@ -967,8 +1069,8 @@ class __$$MenusImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MenusImpl implements _Menus {
   const _$MenusImpl(
-      {required final List<Category> foods,
-      required final List<Category> drinks})
+      {@JsonKey(name: "foods") required final List<Category> foods,
+      @JsonKey(name: "drinks") required final List<Category> drinks})
       : _foods = foods,
         _drinks = drinks;
 
@@ -977,6 +1079,7 @@ class _$MenusImpl implements _Menus {
 
   final List<Category> _foods;
   @override
+  @JsonKey(name: "foods")
   List<Category> get foods {
     if (_foods is EqualUnmodifiableListView) return _foods;
     // ignore: implicit_dynamic_type
@@ -985,6 +1088,7 @@ class _$MenusImpl implements _Menus {
 
   final List<Category> _drinks;
   @override
+  @JsonKey(name: "drinks")
   List<Category> get drinks {
     if (_drinks is EqualUnmodifiableListView) return _drinks;
     // ignore: implicit_dynamic_type
@@ -1028,14 +1132,17 @@ class _$MenusImpl implements _Menus {
 
 abstract class _Menus implements Menus {
   const factory _Menus(
-      {required final List<Category> foods,
-      required final List<Category> drinks}) = _$MenusImpl;
+          {@JsonKey(name: "foods") required final List<Category> foods,
+          @JsonKey(name: "drinks") required final List<Category> drinks}) =
+      _$MenusImpl;
 
   factory _Menus.fromJson(Map<String, dynamic> json) = _$MenusImpl.fromJson;
 
   @override
+  @JsonKey(name: "foods")
   List<Category> get foods;
   @override
+  @JsonKey(name: "drinks")
   List<Category> get drinks;
   @override
   @JsonKey(ignore: true)

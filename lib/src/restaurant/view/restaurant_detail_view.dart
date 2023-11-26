@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../common/helper/constant.dart';
 import '../controller/restaurant_provider.dart';
 
@@ -33,6 +34,7 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     final restaurantDetail = ref.watch(restaurantDetailProvider);
+    final restaurantRead = ref.read(restaurantDetailProvider.notifier);
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -80,10 +82,39 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 24),
-                          Text(data.restaurant.name,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Text(data.restaurant.name,
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                flex: 2,
+                                child: IconButton(
+                                  onPressed: () =>
+                                      restaurantRead.setFavRestaurant(data)
+                                  // .then((value) => restaurantRead
+                                  //     .getDetailRestaurant(widget.id,
+                                  //         isRefresh: false
+                                  //         )
+                                  //         )
+                                  ,
+                                  icon: Icon(
+                                    // data.restaurant.isFavorite
+                                    restaurantRead.isFav(data.restaurant)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           const SizedBox(height: 4),
                           Row(
                             children: [

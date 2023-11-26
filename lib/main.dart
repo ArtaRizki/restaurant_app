@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_view.dart';
 
-void main() {
+import 'common/helper/sharedpref.dart';
+
+Prefs prefs = Prefs();
+void main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
+  await prefs.init();
   runApp(const ProviderScope(child: MyApp()));
 }
 

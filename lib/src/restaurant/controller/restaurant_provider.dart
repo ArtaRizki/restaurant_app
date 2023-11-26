@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/common/helper/constant.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_detail_model.dart'
@@ -9,6 +12,9 @@ import 'package:restaurant_app/src/restaurant/model/restaurant_detail_state.dart
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_model.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_state.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../main.dart';
 
 final restaurantProvider =
     StateNotifierProvider<RestaurantNotifier, RestaurantState>(
@@ -48,9 +54,11 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
 
   BaseController baseC = BaseController();
 
-  Future<void> getDetailRestaurant(String id) async {
+  Future<void> getDetailRestaurant(String id, {bool isRefresh = true}) async {
     try {
-      state = const RestaurantDetailState.loading();
+      if (isRefresh) {
+        state = const RestaurantDetailState.loading();
+      }
       final url = '${Constant.baseApi}/detail/$id';
       final response = await baseC.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -61,6 +69,57 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
       }
     } catch (e) {
       state = const RestaurantDetailState.error("Error, Terjadi kesalahan");
+    }
+  }
+
+  Future<List<String>?> getFavRestaurant() async {
+    return prefs.getStringList("fav");
+  }
+
+  bool isFav(rD.Restaurant res) {
+    List<String>? favRestaurant = prefs.getStringList("fav");
+    if (favRestaurant != null && favRestaurant.any((e) => e == res.id)) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> setFavRestaurant(
+      rD.RestaurantDetailModel restaurantModel) async {
+    try {
+      // pref.clear();
+      // rD.Restaurant res = restaurantModel.restaurant;
+      List<String>? favRestaurant = prefs.getStringList("fav");
+      if (favRestaurant != null) {
+        favRestaurant.forEach((e) {
+          log("RESTO LIST : $e");
+        });
+        if (!favRestaurant.any((e) => e == restaurantModel.restaurant.id)) {
+          state.whenOrNull(data: (data) {
+            data = data.copyWith(
+                restaurant: data.restaurant.copyWith(isFavorite: true));
+          });
+          favRestaurant.add(restaurantModel.restaurant.id);
+        } else {
+          state.whenOrNull(data: (data) {
+            data = data.copyWith(
+                restaurant: data.restaurant.copyWith(isFavorite: false));
+          });
+          favRestaurant.remove(restaurantModel.restaurant.id);
+        }
+        prefs.setStringList("fav", favRestaurant);
+      } else {
+        List<String> favTemp = [];
+        state.whenOrNull(data: (data) {
+          data = data.copyWith(
+              restaurant: data.restaurant.copyWith(isFavorite: true));
+        });
+        favTemp.add(restaurantModel.restaurant.id);
+        prefs.setStringList("fav", favTemp);
+      }
+      state = RestaurantDetailState.data(restaurantModel);
+    } catch (e) {
+      state = const RestaurantDetailState.error("Gagal Fav");
     }
   }
 }

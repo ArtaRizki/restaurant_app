@@ -41,7 +41,6 @@ class BaseController {
       {Map<String, String>? headers,
       Map<String, dynamic>? body,
       List<http.MultipartFile>? files}) async {
-    // print(body);
     Map<String, String> h = <String, String>{};
     h.putIfAbsent('Connection', () => 'Keep-Alive');
     h.putIfAbsent('accept', () => 'application/json');
