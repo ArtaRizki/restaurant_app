@@ -119,33 +119,48 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                           const Text("Menu Makanan",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
+                          const SizedBox(height: 8),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: size.height * 0.42,
-                      child: GridView.count(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 4),
-                        physics: const NeverScrollableScrollPhysics(),
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 16,
-                        crossAxisCount: 2,
-                        children: List.generate(
-                          data.restaurant.menus.foods.length,
-                          (index) {
-                            final food = data.restaurant.menus.foods[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Text(
-                                food.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            );
-                          },
-                        ),
+                    GridView.count(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      physics: const NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: 0,
+                      crossAxisSpacing: 16,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        data.restaurant.menus.foods.length,
+                        (index) {
+                          final food = data.restaurant.menus.foods[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    food.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const Padding(
@@ -153,37 +168,54 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text(
+                            "Menu Minuman",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                           SizedBox(height: 8),
-                          Text("Menu Minuman",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: size.height * 0.42,
-                      child: GridView.count(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 4),
-                        physics: const NeverScrollableScrollPhysics(),
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 16,
-                        crossAxisCount: 2,
-                        children: List.generate(
-                          data.restaurant.menus.drinks.length,
-                          (index) {
-                            final drink = data.restaurant.menus.drinks[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Text(
-                                drink.name,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            );
-                          },
-                        ),
+                    GridView.count(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisSpacing: 16,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        data.restaurant.menus.drinks.length,
+                        (index) {
+                          final drink = data.restaurant.menus.drinks[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    drink.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(height: 32),

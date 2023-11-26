@@ -26,7 +26,6 @@ class _RestaurantSearchViewState extends ConsumerState<RestaurantSearchView> {
 
   @override
   void dispose() {
-    // ref.read(restaurantSearchProvider.notifier).dispose();
     super.dispose();
   }
 

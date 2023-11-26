@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/common/helper/constant.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_detail_model.dart'
@@ -36,13 +35,10 @@ class RestaurantNotifier extends StateNotifier<RestaurantState> {
       if (response.statusCode == 200 || response.statusCode == 201) {
         state = RestaurantState.data(rM.restaurantModelFromJson(response.body));
       } else {
-        final message = jsonDecode(response.body)["message"];
-        state = RestaurantState.error(message);
-        throw Exception(message);
+        state = const RestaurantState.error("Error, Terjadi kesalahan");
       }
     } catch (e) {
-      state = RestaurantState.error(e.toString());
-      throw (Exception(e.toString()));
+      state = const RestaurantState.error("Error, Terjadi kesalahan");
     }
   }
 }
@@ -61,11 +57,10 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
         state = RestaurantDetailState.data(
             rD.restaurantDetailModelFromJson(response.body));
       } else {
-        final message = jsonDecode(response.body)["message"];
-        throw Exception(message);
+        state = const RestaurantDetailState.error("Error, Terjadi kesalahan");
       }
     } catch (e) {
-      throw (Exception(e.toString()));
+      state = const RestaurantDetailState.error("Error, Terjadi kesalahan");
     }
   }
 }
@@ -84,11 +79,10 @@ class RestaurantSearchNotifier extends StateNotifier<RestaurantSearchState> {
         state = RestaurantSearchState.data(
             restaurantSearchModelFromJson(response.body));
       } else {
-        final message = jsonDecode(response.body)["message"];
-        throw Exception(message);
+        state = const RestaurantSearchState.error("Error, Terjadi kesalahan");
       }
     } catch (e) {
-      throw (Exception(e.toString()));
+      state = const RestaurantSearchState.error("Error, Terjadi kesalahan");
     }
   }
 }

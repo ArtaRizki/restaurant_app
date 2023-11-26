@@ -58,7 +58,6 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
               const Text("Resto rekomendasi untukmu!",
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.black26)),
-              // const SizedBox(height: 32),
               restaurant.when(
                 loading: () => SizedBox(
                   height: size.height * 0.5,
