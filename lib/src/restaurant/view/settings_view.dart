@@ -28,23 +28,21 @@ class _SettingsViewState extends State<SettingsView> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Material(
-              child: ListTile(
-                title: const Text('Scheduling Restaurant'),
-                trailing: Consumer<SchedulingProvider>(
-                  builder: (context, scheduled, widget) {
-                    return Switch.adaptive(
-                      value: scheduled.isScheduled(),
-                      onChanged: (value) async {
-                        if (Platform.isIOS) {
-                          customDialog(context);
-                        } else {
-                          scheduled.scheduledRestaurant(value);
-                        }
-                      },
-                    );
-                  },
-                ),
+            ListTile(
+              title: const Text('Scheduling Restaurant'),
+              trailing: Consumer<SchedulingProvider>(
+                builder: (context, scheduled, widget) {
+                  return Switch(
+                    value: scheduled.isScheduled(),
+                    onChanged: (value) async {
+                      if (Platform.isIOS) {
+                        customDialog(context);
+                      } else {
+                        scheduled.scheduledRestaurant(value);
+                      }
+                    },
+                  );
+                },
               ),
             ),
           ],

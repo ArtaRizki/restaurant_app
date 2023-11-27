@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as m;
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restaurant_app/common/helper/navigation.dart';
@@ -38,6 +39,7 @@ class NotificationHelper {
         log('notification payload: $payload');
       }
       selectNotificationSubject.add(payload ?? 'empty payload');
+      configureSelectNotificationSubject();
     });
   }
 
@@ -61,20 +63,21 @@ class NotificationHelper {
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
-    var titleNotification = "<b>Headline Restaurant</b>";
-    var titleRestaurant = restaurants.restaurants[0].name;
+    var titleNotification = "<b>Coba Liat Restaurant Ini</b>";
+    var titleRestaurant = "Klik disini untuk melihat";
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleRestaurant, platformChannelSpecifics,
         payload: jsonEncode(restaurants.toJson()));
   }
 
-  void configureSelectNotificationSubject(String route) {
+  void configureSelectNotificationSubject() {
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = RestaurantModel.fromJson(json.decode(payload));
-        var article = data.restaurants[0];
-        Navigation.intentWithData(route, article);
+        int randomIndex = m.Random().nextInt(data.restaurants.length);
+        var resItem = data.restaurants[randomIndex];
+        Navigation.intentWithData(resItem);
       },
     );
   }
