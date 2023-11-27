@@ -18,7 +18,11 @@ import '../../../main.dart';
 
 final restaurantProvider =
     StateNotifierProvider<RestaurantNotifier, RestaurantState>(
-        (ref) => RestaurantNotifier());
+        (ref) => RestaurantNotifier(false));
+
+final restaurantFavProvider =
+    StateNotifierProvider<RestaurantNotifier, RestaurantState>(
+        (ref) => RestaurantNotifier(true));
 final restaurantDetailProvider =
     StateNotifierProvider<RestaurantDetailNotifier, RestaurantDetailState>(
         (ref) => RestaurantDetailNotifier());
@@ -27,25 +31,74 @@ final restaurantSearchProvider =
         (ref) => RestaurantSearchNotifier());
 
 class RestaurantNotifier extends StateNotifier<RestaurantState> {
-  RestaurantNotifier() : super(const RestaurantState.loading()) {
-    getRestaurant();
+  bool isFavPage;
+  RestaurantNotifier(this.isFavPage) : super(const RestaurantState.loading()) {
+    if (!isFavPage) {
+      getRestaurant();
+    }
   }
 
   BaseController baseC = BaseController();
 
   Future<void> getRestaurant() async {
-    try {
-      state = const RestaurantState.loading();
-      const url = '${Constant.baseApi}/list';
-      final response = await baseC.get(url);
-      if (response.statusCode == 200 || response.statusCode == 201) {
+    // try {
+    state = const RestaurantState.loading();
+    const url = '${Constant.baseApi}/list';
+    final response = await baseC.get(url);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      log("IS FAV PAGE : $isFavPage");
+      // state = RestaurantState.data(rM.restaurantModelFromJson(response.body));
+      if (!isFavPage) {
         state = RestaurantState.data(rM.restaurantModelFromJson(response.body));
       } else {
-        state = const RestaurantState.error("Error, Terjadi kesalahan");
+        var datas = rM.restaurantModelFromJson(response.body);
+        var resLength = datas.restaurants;
+        List<rM.Restaurant> tmp = [];
+        var savedRes = prefs.getStringList("fav");
+        log("SAVED RES : $savedRes");
+        log("RES LENGTH : ${resLength.length}");
+        log("DATAS 1 : ${datas.restaurants.first.id}");
+        if (savedRes != null) {
+          // log("MATCH : ${resLength.where((e) => e.id == savedRes.firstWhere((element) => element == e.id)).toList()}");
+          // var newData = datas.copyWith(
+          //     restaurants: datas.restaurants
+          //         .where((e) =>
+          //             e.id ==
+          //             savedRes.where((element) => element == e.id).first)
+          for (int i = 0; i < resLength.length; i++) {
+            log("DATAS $i : ${resLength[i]}");
+            for (int j = 0; j < savedRes.length; j++) {
+              log("SAVED RES $j : ${savedRes[j]}");
+              if (savedRes[j] == resLength[i].id) {
+                log("SAMA");
+                tmp.add(resLength[i]);
+                break;
+                // break;
+              }
+            }
+          }
+          log("TMP LENGTH : $tmp");
+          //         .toList());
+          // RestaurantState.data(newData);
+          state = RestaurantState.data(datas.copyWith(restaurants: tmp));
+          // state = RestaurantState.data(datas.copyWith(
+          //     restaurants: datas.restaurants
+          //         .where((e) =>
+          //             e.id ==
+          //             savedRes.where((element) => element == e.id).first)
+          //         .toList()));
+        }
+        //else {
+        //   state =
+        //       RestaurantState.data(rM.restaurantModelFromJson(response.body));
+        // }
       }
-    } catch (e) {
+    } else {
       state = const RestaurantState.error("Error, Terjadi kesalahan");
     }
+    // } catch (e) {
+    //   state = const RestaurantState.error("Error, Terjadi kesalahan");
+    // }
   }
 }
 

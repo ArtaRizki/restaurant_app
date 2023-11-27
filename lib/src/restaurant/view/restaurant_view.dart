@@ -6,6 +6,8 @@ import 'package:restaurant_app/src/restaurant/controller/restaurant_provider.dar
 import 'package:restaurant_app/src/restaurant/view/restaurant_detail_view.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_search_view%20.dart';
 
+import 'restaurant_fav_view.dart';
+
 class RestaurantView extends ConsumerStatefulWidget {
   const RestaurantView({super.key});
 
@@ -41,17 +43,45 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
                 children: [
                   const Text("Restaurant",
                       style: TextStyle(fontSize: 28, color: Colors.black87)),
-                  IconButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const RestaurantSearchView())),
-                    icon: const Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: 30,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RestaurantSearchView())),
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RestaurantFavView())),
+                        icon: const Icon(
+                          Icons.favorite_border,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RestaurantSearchView())),
+                        icon: const Icon(
+                          Icons.settings,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -61,13 +91,13 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
               restaurant.when(
                 loading: () => SizedBox(
                   height: size.height * 0.5,
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
                 error: (error) => Text(error),
                 data: (data) => SizedBox(
                   width: double.infinity,
                   child: data.restaurants.isEmpty
-                      ? Text("Data tidak ditemukan")
+                      ? const Text("Data tidak ditemukan")
                       : ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
