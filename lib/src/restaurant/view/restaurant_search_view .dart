@@ -87,7 +87,7 @@ class _RestaurantSearchViewState extends ConsumerState<RestaurantSearchView> {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error) => Text(error),
               data: (data) => data.restaurants.isEmpty
-                  ? Text("Data tidak ditemukan")
+                  ? const Text("Data tidak ditemukan")
                   : ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),

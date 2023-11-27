@@ -6,9 +6,11 @@ import '../../../common/helper/constant.dart';
 import '../controller/restaurant_provider.dart';
 
 class RestaurantDetailView extends ConsumerStatefulWidget {
-  const RestaurantDetailView({super.key, required this.id, required this.name});
+  const RestaurantDetailView(
+      {super.key, required this.id, required this.name, this.refresh = false});
   final String id;
   final String name;
+  final bool refresh;
 
   @override
   ConsumerState<RestaurantDetailView> createState() =>
@@ -41,7 +43,7 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: InkWell(
-          onTap: () => Navigator.pop(context),
+          onTap: () => Navigator.pop(context, widget.refresh),
           child: const Icon(Icons.arrow_back_ios_new),
         ),
         centerTitle: true,

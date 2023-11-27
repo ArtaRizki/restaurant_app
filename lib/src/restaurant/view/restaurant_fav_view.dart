@@ -29,10 +29,12 @@ class _RestaurantFavViewState extends ConsumerState<RestaurantFavView> {
   @override
   Widget build(BuildContext context) {
     final restaurant = ref.watch(restaurantFavProvider);
+    final restaurantNotifier = ref.read(restaurantFavProvider.notifier);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Favorit"),
+        title: const Text("Favorit"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -60,12 +62,19 @@ class _RestaurantFavViewState extends ConsumerState<RestaurantFavView> {
                             itemBuilder: (context, index) {
                               final item = data.restaurants[index];
                               return InkWell(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            RestaurantDetailView(
-                                                id: item.id, name: item.name))),
+                                onTap: () async {
+                                  final refresh = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RestaurantDetailView(
+                                                  id: item.id,
+                                                  name: item.name,
+                                                  refresh: true)));
+                                  if (refresh != null) {
+                                    restaurantNotifier.getRestaurant();
+                                  }
+                                },
                                 child: Row(
                                   children: [
                                     Expanded(
