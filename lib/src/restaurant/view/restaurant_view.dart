@@ -7,6 +7,7 @@ import 'package:restaurant_app/src/restaurant/view/restaurant_detail_view.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_search_view%20.dart';
 
 import 'restaurant_fav_view.dart';
+import 'settings_view.dart';
 
 class RestaurantView extends ConsumerStatefulWidget {
   const RestaurantView({super.key});
@@ -73,8 +74,7 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const RestaurantSearchView())),
+                                builder: (context) => const SettingsView())),
                         icon: const Icon(
                           Icons.settings,
                           color: Colors.black,
