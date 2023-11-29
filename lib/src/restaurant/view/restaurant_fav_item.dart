@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/common/helper/database_helper.dart';
-
 import '../../../common/helper/constant.dart';
 import '../controller/database_provider.dart';
 import '../model/restaurant_model.dart';
@@ -98,36 +96,6 @@ class RestaurantFavItem extends StatelessWidget {
                 ],
               ),
             );
-            // return Material(
-            //   child: ListTile(
-            //     contentPadding:
-            //         const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            //     leading: Hero(
-            //       tag: restaurantItem.urlToImage!,
-            //       child: Image.network(
-            //         restaurantItem.urlToImage!,
-            //         width: 100,
-            //       ),
-            //     ),
-            //     title: Text(
-            //       restaurantItem.title,
-            //     ),
-            //     subtitle: Text(restaurantItem.author ?? ""),
-            //     trailing: isFavourited
-            //         ? IconButton(
-            //             icon: const Icon(Icons.bookmark),
-            //             color: Theme.of(context).colorScheme.secondary,
-            //             onPressed: () => provider.removeBookmark(restaurantItem.url),
-            //           )
-            //         : IconButton(
-            //             icon: const Icon(Icons.bookmark_border),
-            //             color: Theme.of(context).colorScheme.secondary,
-            //             onPressed: () => provider.addBookmark(restaurantItem),
-            //           ),
-            //     onTap: () => Navigation.intentWithData(
-            //         RestaurantDetailPage.routeName, restaurantItem),
-            //   ),
-            // );
           },
         );
       },

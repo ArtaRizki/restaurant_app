@@ -1,23 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:restaurant_app/common/helper/constant.dart';
+import 'package:provider/provider.dart' as p;
+import 'package:restaurant_app/src/restaurant/controller/database_provider.dart';
 import 'package:restaurant_app/src/restaurant/controller/restaurant_provider.dart';
-import 'package:restaurant_app/src/restaurant/view/restaurant_detail_view.dart';
+import 'package:restaurant_app/src/restaurant/view/restaurant_fav_item.dart';
 
-class RestaurantFavView extends ConsumerStatefulWidget {
-  const RestaurantFavView({super.key});
+class RestaurantFavView2 extends ConsumerStatefulWidget {
+  const RestaurantFavView2({super.key});
 
   @override
-  ConsumerState<RestaurantFavView> createState() => _RestaurantFavViewState();
+  ConsumerState<RestaurantFavView2> createState() => _RestaurantFavView2State();
 }
 
-class _RestaurantFavViewState extends ConsumerState<RestaurantFavView> {
+class _RestaurantFavView2State extends ConsumerState<RestaurantFavView2> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(restaurantFavProvider.notifier).getRestaurant();
-    });
     super.initState();
   }
 
@@ -26,10 +23,13 @@ class _RestaurantFavViewState extends ConsumerState<RestaurantFavView> {
     super.dispose();
   }
 
+  getRest() async {
+    ref.read(restaurantFavProvider.notifier).getRestaurant();
+  }
+
   @override
   Widget build(BuildContext context) {
     final restaurant = ref.watch(restaurantFavProvider);
-    final restaurantNotifier = ref.read(restaurantFavProvider.notifier);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -42,100 +42,23 @@ class _RestaurantFavViewState extends ConsumerState<RestaurantFavView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              restaurant.when(
-                loading: () => SizedBox(
-                  height: size.height * 0.5,
-                  child: const Center(child: CircularProgressIndicator()),
-                ),
-                error: (error) => Text(error),
-                data: (data) {
+              p.Consumer<DatabaseProvider>(
+                builder: (context, provider, child) {
                   return SizedBox(
                     width: double.infinity,
-                    child: data.restaurants.isEmpty
+                    child: provider.favourites.isEmpty
                         ? const Text("Data favorit tidak ditemukan")
                         : ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: data.restaurants.length,
+                            itemCount: provider.favourites.length,
                             separatorBuilder: (_, __) =>
                                 const SizedBox(height: 16),
                             itemBuilder: (context, index) {
-                              final item = data.restaurants[index];
-                              return InkWell(
-                                onTap: () async {
-                                  final refresh = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RestaurantDetailView(
-                                                  id: item.id,
-                                                  name: item.name,
-                                                  refresh: true)));
-                                  if (refresh != null) {
-                                    restaurantNotifier.getRestaurant();
-                                  }
-                                },
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 3,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(16),
-                                        child: CachedNetworkImage(
-                                          placeholder: (context, _) {
-                                            return const Center(
-                                                child:
-                                                    CircularProgressIndicator());
-                                          },
-                                          imageUrl: Constant.imageUrlSmall +
-                                              item.pictureId,
-                                          errorWidget: (context, _, __) {
-                                            return const Text("Gambar Error");
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      flex: 7,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item.name,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.location_on,
-                                                color: Colors.red,
-                                                size: 15,
-                                              ),
-                                              const SizedBox(width: 2),
-                                              Text(item.city),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.star,
-                                                color: Colors.orange,
-                                                size: 15,
-                                              ),
-                                              const SizedBox(width: 2),
-                                              Text("${item.rating}"),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              final item = provider.favourites[index];
+                              return RestaurantFavItem(
+                                restaurantItem: item,
+                                getRestaurantCallback: getRest,
                               );
                             },
                           ),

@@ -125,18 +125,8 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
                                                     ? provider.removeFavourite(
                                                         item.id)
                                                     : provider.addFavourite(
-                                                        restaurantModel)
-                                                // restaurantRead.setFavRestaurant(data)
-                                                // .then((value) => restaurantRead
-                                                //     .getDetailRestaurant(widget.id,
-                                                //         isRefresh: false
-                                                //         )
-                                                //         )
-                                                ,
+                                                        restaurantModel),
                                                 icon: Icon(
-                                                  // data.restaurant.isFavorite
-                                                  // restaurantRead.isFav(
-                                                  //         data.restaurant)
                                                   isFavourited
                                                       ? Icons.favorite
                                                       : Icons.favorite_border,

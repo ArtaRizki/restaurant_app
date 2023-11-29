@@ -44,25 +44,7 @@ class RestaurantNotifier extends StateNotifier<RestaurantState> {
       const url = '${Constant.baseApi}/list';
       final response = await baseC.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // if (!isFavPage) {
         state = RestaurantState.data(rM.restaurantModelFromJson(response.body));
-        // } else {
-        //   var datas = rM.restaurantModelFromJson(response.body);
-        //   var resList = datas.restaurants;
-        //   List<rM.Restaurant> tmp = [];
-        //   var savedRes = prefs.getStringList("fav");
-        //   if (savedRes != null) {
-        //     for (int i = 0; i < resList.length; i++) {
-        //       for (int j = 0; j < savedRes.length; j++) {
-        //         if (savedRes[j] == resList[i].id) {
-        //           tmp.add(resList[i]);
-        //           break;
-        //         }
-        //       }
-        //     }
-        //     state = RestaurantState.data(datas.copyWith(restaurants: tmp));
-        //   }
-        // }
       } else {
         state = const RestaurantState.error("Error, Terjadi kesalahan");
       }
@@ -92,57 +74,6 @@ class RestaurantDetailNotifier extends StateNotifier<RestaurantDetailState> {
       }
     } catch (e) {
       state = const RestaurantDetailState.error("Error, Terjadi kesalahan");
-    }
-  }
-
-  Future<List<String>?> getFavRestaurant() async {
-    return prefs.getStringList("fav");
-  }
-
-  bool isFav(rD.Restaurant res) {
-    List<String>? favRestaurant = prefs.getStringList("fav");
-    if (favRestaurant != null && favRestaurant.any((e) => e == res.id)) {
-      return true;
-    }
-    return false;
-  }
-
-  Future<void> setFavRestaurant(
-      rD.RestaurantDetailModel restaurantModel) async {
-    try {
-      // pref.clear();
-      // rD.Restaurant res = restaurantModel.restaurant;
-      List<String>? favRestaurant = prefs.getStringList("fav");
-      if (favRestaurant != null) {
-        favRestaurant.forEach((e) {
-          log("RESTO LIST : $e");
-        });
-        if (!favRestaurant.any((e) => e == restaurantModel.restaurant.id)) {
-          // state.whenOrNull(data: (data) {
-          //   data = data.copyWith(
-          //       restaurant: data.restaurant.copyWith(isFavorite: true));
-          // });
-          favRestaurant.add(restaurantModel.restaurant.id);
-        } else {
-          // state.whenOrNull(data: (data) {
-          //   data = data.copyWith(
-          //       restaurant: data.restaurant.copyWith(isFavorite: false));
-          // });
-          favRestaurant.remove(restaurantModel.restaurant.id);
-        }
-        prefs.setStringList("fav", favRestaurant);
-      } else {
-        List<String> favTemp = [];
-        // state.whenOrNull(data: (data) {
-        //   data = data.copyWith(
-        //       restaurant: data.restaurant.copyWith(isFavorite: true));
-        // });
-        favTemp.add(restaurantModel.restaurant.id);
-        prefs.setStringList("fav", favTemp);
-      }
-      state = RestaurantDetailState.data(restaurantModel);
-    } catch (e) {
-      state = const RestaurantDetailState.error("Gagal Fav");
     }
   }
 }

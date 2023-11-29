@@ -4,10 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/common/helper/constant.dart';
 import 'package:restaurant_app/src/restaurant/controller/restaurant_provider.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_detail_view.dart';
-import 'package:restaurant_app/src/restaurant/view/restaurant_fav_view2.dart';
+import 'package:restaurant_app/src/restaurant/view/restaurant_fav_view.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_search_view%20.dart';
-
-import 'restaurant_fav_view.dart';
 import 'settings_view.dart';
 
 class RestaurantView extends ConsumerStatefulWidget {
