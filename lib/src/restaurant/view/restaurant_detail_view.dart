@@ -39,9 +39,8 @@ class _RestaurantDetailViewState extends ConsumerState<RestaurantDetailView> {
   @override
   Widget build(BuildContext context) {
     final restaurantDetail = ref.watch(restaurantDetailProvider);
-    final restaurantRead = ref.read(restaurantDetailProvider.notifier);
-
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,

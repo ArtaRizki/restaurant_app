@@ -29,8 +29,6 @@ class _RestaurantFavView2State extends ConsumerState<RestaurantFavView2> {
 
   @override
   Widget build(BuildContext context) {
-    final restaurant = ref.watch(restaurantFavProvider);
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Favorit"),

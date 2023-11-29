@@ -23,7 +23,6 @@ class RestaurantFavItem extends StatelessWidget {
         return FutureBuilder<bool>(
           future: provider.isFavourited(restaurantItem.id),
           builder: (context, snapshot) {
-            var isFavourited = snapshot.data ?? false;
             return InkWell(
               onTap: () async {
                 final refresh = await Navigator.push(

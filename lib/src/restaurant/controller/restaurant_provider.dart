@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/common/helper/constant.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_detail_model.dart'
@@ -11,8 +9,6 @@ import 'package:restaurant_app/src/restaurant/model/restaurant_detail_state.dart
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_model.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_state.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_state.dart';
-
-import '../../../main.dart';
 
 final restaurantProvider =
     StateNotifierProvider<RestaurantNotifier, RestaurantState>(
