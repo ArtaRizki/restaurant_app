@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +11,6 @@ import 'package:restaurant_app/src/restaurant/model/restaurant_detail_state.dart
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_model.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_search_state.dart';
 import 'package:restaurant_app/src/restaurant/model/restaurant_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main.dart';
 
@@ -46,26 +44,25 @@ class RestaurantNotifier extends StateNotifier<RestaurantState> {
       const url = '${Constant.baseApi}/list';
       final response = await baseC.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (!isFavPage) {
-          state =
-              RestaurantState.data(rM.restaurantModelFromJson(response.body));
-        } else {
-          var datas = rM.restaurantModelFromJson(response.body);
-          var resList = datas.restaurants;
-          List<rM.Restaurant> tmp = [];
-          var savedRes = prefs.getStringList("fav");
-          if (savedRes != null) {
-            for (int i = 0; i < resList.length; i++) {
-              for (int j = 0; j < savedRes.length; j++) {
-                if (savedRes[j] == resList[i].id) {
-                  tmp.add(resList[i]);
-                  break;
-                }
-              }
-            }
-            state = RestaurantState.data(datas.copyWith(restaurants: tmp));
-          }
-        }
+        // if (!isFavPage) {
+        state = RestaurantState.data(rM.restaurantModelFromJson(response.body));
+        // } else {
+        //   var datas = rM.restaurantModelFromJson(response.body);
+        //   var resList = datas.restaurants;
+        //   List<rM.Restaurant> tmp = [];
+        //   var savedRes = prefs.getStringList("fav");
+        //   if (savedRes != null) {
+        //     for (int i = 0; i < resList.length; i++) {
+        //       for (int j = 0; j < savedRes.length; j++) {
+        //         if (savedRes[j] == resList[i].id) {
+        //           tmp.add(resList[i]);
+        //           break;
+        //         }
+        //       }
+        //     }
+        //     state = RestaurantState.data(datas.copyWith(restaurants: tmp));
+        //   }
+        // }
       } else {
         state = const RestaurantState.error("Error, Terjadi kesalahan");
       }

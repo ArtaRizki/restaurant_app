@@ -4,7 +4,10 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as p;
+import 'package:restaurant_app/common/helper/database_helper.dart';
 import 'package:restaurant_app/common/helper/navigation.dart';
+import 'package:restaurant_app/src/restaurant/controller/database_provider.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_view.dart';
 
 import 'common/helper/bg_service.dart';
@@ -24,7 +27,14 @@ void main() async {
     await AndroidAlarmManager.initialize();
   }
   await _notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      child: p.ChangeNotifierProvider(
+        create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

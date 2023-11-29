@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as m;
 import 'dart:ui';
 import 'dart:isolate';
 import '../../main.dart';
@@ -35,9 +36,9 @@ class BackgroundService {
     final NotificationHelper notificationHelper = NotificationHelper();
     const url = '${Constant.baseApi}/list';
     final result = await baseC.get(url);
-    var data = restaurantModelFromJson(result.body);
+    var data = restaurantModelFromJson(result.body).restaurants;
     await notificationHelper.showNotification(
-        flutterLocalNotificationsPlugin, data);
+        flutterLocalNotificationsPlugin, data[m.Random().nextInt(data.length)]);
 
     _uiSendPort ??= IsolateNameServer.lookupPortByName(_isolateName);
     _uiSendPort?.send(null);

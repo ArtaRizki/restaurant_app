@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_app/common/helper/constant.dart';
 import 'package:restaurant_app/src/restaurant/controller/restaurant_provider.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_detail_view.dart';
+import 'package:restaurant_app/src/restaurant/view/restaurant_fav_view2.dart';
 import 'package:restaurant_app/src/restaurant/view/restaurant_search_view%20.dart';
 
 import 'restaurant_fav_view.dart';
@@ -63,7 +64,7 @@ class _RestaurantViewState extends ConsumerState<RestaurantView> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const RestaurantFavView())),
+                                    const RestaurantFavView2())),
                         icon: const Icon(
                           Icons.favorite_border,
                           color: Colors.black,
